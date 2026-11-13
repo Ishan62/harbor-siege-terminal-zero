@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: harbor-siege-server
+    runtime: node
+    rootDir: .
+    buildCommand: npm install
+    startCommand: npm run start -w server
+    envVars:
+      - key: CLIENT_ORIGIN
+        value: "*"
+  - type: web
+    name: harbor-siege-client
+    runtime: static
+    rootDir: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_SERVER_URL
+        sync: false
